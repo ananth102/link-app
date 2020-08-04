@@ -1,9 +1,9 @@
 let express = require("express");
 let app = express();
 let path = require("path");
-let routes = require("./routes/routes")
 
 let bodyParser = require("body-parser");
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +39,7 @@ if (process.env.NODE_ENV === "production") {
 app.get("/",(req,res,next)=>{
     res.send("woof");
 })
+let routes = require("./routes/routes")
 
 app.use("/",routes);
 

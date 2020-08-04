@@ -1,4 +1,5 @@
 
+const Creator = require("../models/creator.model");
 
 /* Fetches ALL information about the creator
    Diffrent from the consumer function because it fetches analytics along with links

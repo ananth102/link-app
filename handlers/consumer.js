@@ -15,7 +15,7 @@ function consumer_get(req,res,next){
 /* Used for sending data about the consumer to the server/possibily integrate with cookies in the future*/
 function consumer_post(req,res,next){
     Creator.findOneAndUpdate({name:req.params.creator,"private.linkStatistics.name":req.body.val},{$inc: { "linkStatistics.$.count": 1 }},
-    (err,update)=>{
+    {new :true},(err,update)=>{
         if(err)req.status(400).send(err)
         else{
             res.status("200").send(update);

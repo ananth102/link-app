@@ -29,7 +29,12 @@ function creator_put(req,res,next){
     Used for editing just a single link
 */
 function creator_post(req,res,next){
-    Creator.findOneAndUpdate({name:req.params.creator},{$addtoset})
+    Creator.findOneAndUpdate({name:req.params.creator},{$push:{"public.links.links":req.body.link}},{new:true},(err,updaye) => {
+        if(err)req.status(400).send(err)
+        else{
+            res.status("200").send(update);
+        }
+    });
     res.status("200").send(req.params);
 }
 
@@ -38,7 +43,7 @@ function creator_post(req,res,next){
 */
 function creator_delete(req,res,next){
     let er = false
-    Creator.findOneAndUpdate({name:req.params.creator},{$pull:{"public.linkStatistics":req.body.link}},{new:true},(err,update)=>{
+    Creator.findOneAndUpdate({name:req.params.creator},{$pull:{"public.links.$.link":req.body.link}},{new:true},(err,update)=>{
         if(err){
             req.status(400).send(err);
             er = true;
@@ -62,6 +67,6 @@ function creator_delete(req,res,next){
 module.exports = {
     get:creator_get,
     put:creator_put,
-    patch:creator_patch,
+    post:creator_post,
     delete:creator_delete
 }

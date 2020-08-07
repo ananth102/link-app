@@ -7,7 +7,11 @@ const creatorSchema = new mongoose.Schema({
     name:String,
     public:{
         name:String,
-        links:[String]
+        links:[{
+            name:String,
+            link:String,
+            description:String
+        }]
     },
     private:{
         linkStatistics:[{
